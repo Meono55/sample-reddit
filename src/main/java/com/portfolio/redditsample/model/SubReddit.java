@@ -5,13 +5,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.*;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Entity
 public class SubReddit {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name;
-    private User user;
+
+    @ManyToMany(mappedBy = "subReddits")
+    private List<User> users;
+
     private Post post;
 }
