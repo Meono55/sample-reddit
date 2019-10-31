@@ -27,7 +27,7 @@ public class User {
             name = "user_subreddits",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "subreddit_id"))
-    private List<SubReddit> subReddits;
+    private List<Subreddit> subReddits;
 
     @OneToMany(mappedBy = "user")
     private List<Post> posts;

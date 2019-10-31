@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Entity
-public class SubReddit {
+public class Subreddit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,5 +23,6 @@ public class SubReddit {
     @ManyToMany(mappedBy = "subReddits")
     private List<User> users;
 
-    private Post post;
+    @OneToMany(mappedBy = "subreddit")
+    private List<Post> posts;
 }

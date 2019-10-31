@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,7 +24,10 @@ public class Post {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private SubReddit subReddit;
+    @ManyToOne
+    @JoinColumn(name = "subreddit_id", nullable = false)
+    private Subreddit subreddit;
 
-    private Comment comment;
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 }
