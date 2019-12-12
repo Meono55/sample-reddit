@@ -1,9 +1,7 @@
 package com.portfolio.redditsample.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,8 +16,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NonNull
     private String username;
 
+    @NonNull
     private String password;
 
     @ManyToMany
