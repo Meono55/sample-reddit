@@ -9,25 +9,20 @@ import javax.persistence.*;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 @Entity
-public class Post {
+public class Subreddit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @ManyToMany(mappedBy = "subReddits")
+    private List<User> users;
 
-    @ManyToOne
-    @JoinColumn(name = "subreddit_id", nullable = false)
-    private Subreddit subreddit;
-
-    @OneToMany(mappedBy = "post")
-    private List<Comment> comments;
+    @OneToMany(mappedBy = "subreddit")
+    private List<Post> posts;
 }
