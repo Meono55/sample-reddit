@@ -34,4 +34,10 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id){
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
+
+    @PutMapping(value = "/{userId}/join/{subredditId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> joinSubreddit(@PathVariable("userId") Long userId,
+                                              @PathVariable("subredditId") Long subId){
+        return new ResponseEntity<>(userService.joinSubreddit(userId, subId), HttpStatus.OK);
+    }
 }
