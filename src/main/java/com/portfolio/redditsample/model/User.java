@@ -1,5 +1,8 @@
 package com.portfolio.redditsample.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.lang.NonNull;
 
@@ -22,11 +25,12 @@ public class User {
     @NonNull
     private String password;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_subreddits",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "subreddit_id"))
+    @JsonBackReference
     private List<Subreddit> subReddits;
 
     @OneToMany(mappedBy = "user")
