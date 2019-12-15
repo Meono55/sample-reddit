@@ -1,8 +1,6 @@
 package com.portfolio.redditsample.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +14,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Entity
 public class Subreddit {
     @Id
@@ -25,7 +27,7 @@ public class Subreddit {
     @NonNull
     private String name;
 
-    @ManyToMany(mappedBy = "subReddits", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "subReddits", fetch = FetchType.LAZY)
     private List<User> users;
 
     @OneToMany(mappedBy = "subreddit")

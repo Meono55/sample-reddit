@@ -1,5 +1,6 @@
 package com.portfolio.redditsample.controller;
 
+import com.portfolio.redditsample.model.Post;
 import com.portfolio.redditsample.model.User;
 import com.portfolio.redditsample.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,12 @@ public class UserController {
     public ResponseEntity<User> joinSubreddit(@PathVariable("userId") Long userId,
                                               @PathVariable("subredditId") Long subId){
         return new ResponseEntity<>(userService.joinSubreddit(userId, subId), HttpStatus.OK);
+    }
+    @PostMapping(value = "/{userId}/create-post/{subredditId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Post> createPost(@PathVariable("userId") Long userId,
+                                           @PathVariable("subredditId") Long subId,
+                                           @RequestBody Post post){
+
+        return new ResponseEntity<>(userService.createPost(userId, subId, post), HttpStatus.CREATED);
     }
 }

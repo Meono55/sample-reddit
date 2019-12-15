@@ -1,7 +1,9 @@
 package com.portfolio.redditsample.service;
 
+import com.portfolio.redditsample.model.Post;
 import com.portfolio.redditsample.model.Subreddit;
 import com.portfolio.redditsample.model.User;
+import com.portfolio.redditsample.repository.PostRepository;
 import com.portfolio.redditsample.repository.SubredditRepository;
 import com.portfolio.redditsample.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    PostRepository postRepository;
 
     @Autowired
     SubredditRepository subredditRepository;
@@ -46,5 +51,23 @@ public class UserService {
         boolean add = currentUser.getSubReddits().add(currentSub);
 
         return userRepo.save(currentUser);
+    }
+
+    public Post createPost(Long userId, Long subId, Post post) {
+
+        if(subredditRepository.findById(subId).isPresent()){
+            post.setSubreddit(subredditRepository.findById(subId).get());
+        }
+
+        if(!userRepo.findById(userId).isPresent()){
+            return null;
+        }
+
+        User currentUser = userRepo.findById(userId).get();
+        post.setUser(currentUser);
+        Post createdPost = postRepository.save(post);
+//        currentUser.getPosts().add(createdPost);
+
+        return createdPost;
     }
 }

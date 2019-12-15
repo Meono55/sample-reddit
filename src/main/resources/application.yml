@@ -1,11 +1,26 @@
 spring:
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
-        show_sql: true
-        format_sql: true
+      show_sql: true
+      format_sql: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    platform: h2
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /console
+      settings:
+        trace: false
+        web-allow-others: false
 logging:
   level:
     org:
       hibernate:
         type: trace
+
